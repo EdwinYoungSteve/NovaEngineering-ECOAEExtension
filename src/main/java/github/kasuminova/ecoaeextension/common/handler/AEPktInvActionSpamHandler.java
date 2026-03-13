@@ -3,6 +3,7 @@ package github.kasuminova.ecoaeextension.common.handler;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import github.kasuminova.mmce.common.concurrent.TaskExecutor;
+import lombok.Getter;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.LinkedList;
@@ -58,6 +59,7 @@ public class AEPktInvActionSpamHandler {
         public static class Element {
 
             protected final int currentTick;
+            @Getter
             protected int count = 0;
 
             public Element(int currentTick) {
@@ -68,12 +70,8 @@ public class AEPktInvActionSpamHandler {
                 ++count;
             }
 
-            public int getCount() {
-                return count;
-            }
-
         }
 
     }
-    
+
 }

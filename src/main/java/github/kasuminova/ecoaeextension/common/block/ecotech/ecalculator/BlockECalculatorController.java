@@ -71,24 +71,6 @@ public class BlockECalculatorController extends BlockController {
     }
 
     @Override
-    public void breakBlock(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-        Random rand = worldIn.rand;
-        TileEntity te = worldIn.getTileEntity(pos);
-        if (te instanceof ECalculatorController ctrl) {
-            IOInventory inv = ctrl.getInventory();
-            for (int i = 0; i < inv.getSlots(); i++) {
-                ItemStack stack = inv.getStackInSlot(i);
-                if (!stack.isEmpty()) {
-                    spawnAsEntity(worldIn, pos, stack);
-                    inv.setStackInSlot(i, ItemStack.EMPTY);
-                }
-            }
-        }
-
-        worldIn.removeTileEntity(pos);
-    }
-
-    @Override
     public int getLightValue(@Nonnull final IBlockState state) {
         return state.getValue(FORMED) ? 12 : 4;
     }
@@ -97,7 +79,7 @@ public class BlockECalculatorController extends BlockController {
     public boolean onBlockActivated(final World worldIn, @Nonnull final BlockPos pos, @Nonnull final IBlockState state, @Nonnull final EntityPlayer playerIn, @Nonnull final EnumHand hand, @Nonnull final EnumFacing facing, final float hitX, final float hitY, final float hitZ) {
         if (!worldIn.isRemote) {
             TileEntity te = worldIn.getTileEntity(pos);
-            if (te instanceof ECalculatorController) {
+            if (te instanceof ECalculatorController controller && controller.isStructureFormed()) {
                 playerIn.openGui(ECOAEExtension.MOD_ID, CommonProxy.GuiType.ECALCULATOR_CONTROLLER.ordinal(), worldIn, pos.getX(), pos.getY(), pos.getZ());
             }
         }

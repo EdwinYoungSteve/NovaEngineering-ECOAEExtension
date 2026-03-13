@@ -42,13 +42,12 @@ public class ECOAEExtension {
         proxy.construction();
     }
 
-    @SuppressWarnings("ValueOfIncrementOrDecrementUsed")
+    @SuppressWarnings({"ValueOfIncrementOrDecrementUsed", "UnusedAssignment"})
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         event.getModMetadata().version = VERSION;
 
         byte start = 0;
-
         NET_CHANNEL.registerMessage(PktCellDriveStatusUpdate.class, PktCellDriveStatusUpdate.class, start++, Side.CLIENT);
         NET_CHANNEL.registerMessage(PktEStorageGUIData.class, PktEStorageGUIData.class, start++, Side.CLIENT);
         NET_CHANNEL.registerMessage(PktEFabricatorWorkerStatusUpdate.class, PktEFabricatorWorkerStatusUpdate.class, start++, Side.CLIENT);
@@ -63,7 +62,9 @@ public class ECOAEExtension {
         NET_CHANNEL.registerMessage(PktEFabricatorGUIAction.class, PktEFabricatorGUIAction.class, start++, Side.SERVER);
         NET_CHANNEL.registerMessage(PktEFabricatorPatternSearchGUIAction.class, PktEFabricatorPatternSearchGUIAction.class, start++, Side.SERVER);
 
+        CommonProxy.loadModData(event.getModConfigurationDirectory());
         proxy.preInit();
+
     }
 
     @EventHandler
@@ -81,6 +82,5 @@ public class ECOAEExtension {
     public void loadComplete(FMLLoadCompleteEvent event) {
         proxy.loadComplete();
     }
-
 
 }

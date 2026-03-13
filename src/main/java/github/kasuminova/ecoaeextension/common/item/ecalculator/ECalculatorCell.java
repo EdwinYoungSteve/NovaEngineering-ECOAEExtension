@@ -4,6 +4,7 @@ import github.kasuminova.ecoaeextension.ECOAEExtension;
 import github.kasuminova.ecoaeextension.common.block.ecotech.ecalculator.prop.DriveStorageLevel;
 import github.kasuminova.ecoaeextension.common.core.CreativeTabNovaEng;
 import github.kasuminova.ecoaeextension.common.crafttweaker.util.NovaEngUtils;
+import lombok.Getter;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -22,7 +23,9 @@ public class ECalculatorCell extends Item {
     public static final ECalculatorCell L6 = new ECalculatorCell(DriveStorageLevel.B, 1024);
     public static final ECalculatorCell L9 = new ECalculatorCell(DriveStorageLevel.C, 16384);
 
+    @Getter
     protected final DriveStorageLevel level;
+    @Getter
     protected final long totalBytes;
 
     public ECalculatorCell(DriveStorageLevel level, final long millionBytes) {
@@ -43,7 +46,7 @@ public class ECalculatorCell extends Item {
         tooltip.add(I18n.format("novaeng.ecalculator_cell.tip.2"));
         final ECalculatorCell cell = (ECalculatorCell) stack.getItem();
         final boolean shiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
-        tooltip.add(I18n.format("novaeng.ecalculator_cell.tip.3", 
+        tooltip.add(I18n.format("novaeng.ecalculator_cell.tip.3",
                 shiftPressed ? NovaEngUtils.formatNumber(cell.totalBytes) : NovaEngUtils.formatDecimal(cell.totalBytes))
         );
         if (cell == L6) {
@@ -54,12 +57,5 @@ public class ECalculatorCell extends Item {
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
-    public DriveStorageLevel getLevel() {
-        return level;
-    }
-
-    public long getTotalBytes() {
-        return totalBytes;
-    }
 
 }
